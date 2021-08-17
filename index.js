@@ -5,8 +5,8 @@ const goods = [
   { title: "Shoes", price: 250 },
 ];
 
-const renderGoodsItem = (item) => {
-  return `<div class="goods-item"><h3>${item.title}</h3><p>${item.price}</p></div>`;
+const renderGoodsItem = ({ title, price }) => {
+  return `<div class="goods-item"><h3>${title}</h3><p>${price}</p></div>`;
 };
 
 const renderGoodsList = (list) => {
