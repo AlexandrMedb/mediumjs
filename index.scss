@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  // box-sizing: border-box;
+  max-width: 1140px;
+  padding: 0 10px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+.header {
+  background: red;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  button {
+    display: block;
+  }
+}
+
+.goods-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  .goods-item {
+    max-width: 350px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: rgb(126, 123, 123);
+    border-radius: 5px;
+  }
+}
