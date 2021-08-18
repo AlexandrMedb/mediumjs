@@ -27,13 +27,13 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  .goods-item {
-    max-width: 350px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 20px;
-    margin-bottom: 20px;
-    background: rgb(126, 123, 123);
-    border-radius: 5px;
-  }
+}
+.goods-item {
+  max-width: 350px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: rgb(126, 123, 123);
+  border-radius: 5px;
 }

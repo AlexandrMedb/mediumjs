@@ -40,7 +40,7 @@
   gap: 10px;
 }
 
-.goods-list .goods-item {
+.goods-item {
   max-width: 350px;
   width: 100%;
   -webkit-box-sizing: border-box;
