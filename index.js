@@ -141,16 +141,4 @@ const standartHamburger = ["big", spice, salad, cheeze, cheeze, salad, mayo];
 
 let bk = new Hamburger(...standartHamburger);
 
-// // bk.addaddTopping(cheeze);
-// console.log(bk.engridients);
 
-// class Hamburger {
-//   constructor(size, stuffing) { ... }
-//   addTopping(topping) {    // Добавить добавку }
-//   removeTopping(topping) { // Убрать добавку }
-//   getToppings(topping) {   // Получить список добавок }
-//   getSize() {              // Узнать размер гамбургера }
-//   getStuffing() {          // Узнать начинку гамбургера }
-//   calculatePrice() {       // Узнать цену }
-//   calculateCalories() {    // Узнать калорийность }
-// }
