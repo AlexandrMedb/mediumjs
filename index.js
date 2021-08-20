@@ -1,6 +1,6 @@
 class GoodsItem {
-  constructor({ title, price }) {
-    this.title = title;
+  constructor({ product_name, price }) {
+    this.title = product_name;
     this.price = price;
   }
   render() {
@@ -9,18 +9,27 @@ class GoodsItem {
 }
 
 class GoodsList {
-  constructor(itemClass, place = ".goods-list") {
+  constructor(
+    itemClass,
+    place = ".goods-list",
+    catalogData = "/catalogData.json"
+  ) {
     this.goods = [];
     this.itemClass = itemClass;
     this.place = place;
+    this.catalogData = catalogData;
   }
   fetchGoods() {
-    this.goods = [
-      { title: "Shirt", price: 150 },
-      { title: "Socks", price: 50 },
-      { title: "Jacket", price: 350 },
-      { title: "Shoes", price: 250 },
-    ];
+    return answer(API_URL + this.catalogData).then(
+      (goods) => {
+        this.goods = goods;
+
+        return this.goods;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   addOneItem() {}
   removeOneItem() {}
@@ -41,8 +50,8 @@ class GoodsList {
 }
 
 class CartItem extends GoodsItem {
-  constructor({ title, price }) {
-    super({ title, price });
+  constructor({ product_name, price }) {
+    super({ product_name, price });
   }
   render() {
     return `<div class="goods-item"><h3>${this.title}</h3><p>${this.price}</p><button>X</button></div>`;
@@ -50,22 +59,48 @@ class CartItem extends GoodsItem {
 }
 
 class CartList extends GoodsList {
-  constructor(itemClass, place = ".cart-list") {
-    super(itemClass, place);
+  constructor(
+    product_name,
+    place = ".cart-list",
+    catalogData = "/getBasket.json"
+  ) {
+    super(product_name, place, catalogData);
+  }
+
+  fetchGoods() {
+    return answer(API_URL + this.catalogData).then(
+      (goods) => {
+        this.goods = goods.contents;
+
+        return this.goods;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   clearCart() {}
   removeAllItems() {}
+
+  // Добавьте в соответствующие классы методы добавления товара в корзину, удаления товара из корзины и получения списка товаров корзины.
+  /*
+https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses – адрес API;
+/catalogData.json – получить список товаров;
+/getBasket.json – получить содержимое корзины;
+/addToBasket.json – добавить товар в корзину;
+/deleteFromBasket.json – удалить товар из корзины.
+*/
 }
 
-let item = { title: "Shirt", price: 150 };
-
 const list = new GoodsList(GoodsItem);
-list.fetchGoods();
-list.render();
-const cartList = new CartList(CartItem);
-cartList.fetchGoods();
+list.fetchGoods().then(() => {
+  list.render();
+});
 
-cartList.render();
+const cartList = new CartList(CartItem);
+cartList.fetchGoods().then(() => {
+  cartList.render();
+});
 
 /* Некая сеть фастфуда предлагает несколько видов гамбургеров:
 Маленький (50 рублей, 20 калорий).
@@ -140,5 +175,3 @@ class Hamburger {
 const standartHamburger = ["big", spice, salad, cheeze, cheeze, salad, mayo];
 
 let bk = new Hamburger(...standartHamburger);
-
-
