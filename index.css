@@ -50,4 +50,13 @@
   background: #7e7b7b;
   border-radius: 5px;
 }
+
+.hw4 input {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.hw4 button {
+  display: block;
+}
 /*# sourceMappingURL=index.css.map */
