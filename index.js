@@ -39,6 +39,12 @@ const app = new Vue({
       el.quantity--;
 
       this.basket.countGoods--;
+      if (!el.quantity) {
+        let elIndex = this.basket.contents.findIndex(
+          (item) => item.id_product == ellId
+        );
+        this.basket.contents.splice(elIndex, 1);
+      }
     },
     filter() {
       this.filteredGoods = this.goods;
