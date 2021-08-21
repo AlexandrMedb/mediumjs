@@ -24,6 +24,7 @@ const app = new Vue({
 
       if (el_index == -1) {
         let el = this.goods.find((item) => item.id_product == ellId);
+        el.quantity = 1;
         this.basket.contents.push(el);
         this.basket.amount += +el.price;
       } else {
