@@ -1,3 +1,82 @@
+const app = new Vue({
+  el: "#app",
+  data: {
+    goods: [],
+    filteredGoods: [],
+    searchLine: "Ноутбук",
+    basket: {},
+  },
+  methods: {
+    answer(url) {
+      return fetch(url).then(
+        (response) => {
+          return response.json();
+        },
+        (reject) => {
+          console.log(reject);
+        }
+      );
+    },
+    addToCart(ellId) {
+      let el_index = this.basket.contents.findIndex(
+        (item) => item.id_product == ellId
+      );
+
+      if (el_index == -1) {
+        let el = this.goods.find((item) => item.id_product == ellId);
+        this.basket.contents.push(el);
+        this.basket.amount += +el.price;
+      } else {
+        let el = this.basket.contents[el_index];
+        this.basket.amount += +el.price;
+        el.quantity++;
+      }
+      this.basket.countGoods++;
+    },
+    removeFromCart(ellId) {
+      let el = this.basket.contents.find((item) => item.id_product == ellId);
+      this.basket.amount -= +el.price;
+      el.quantity--;
+
+      this.basket.countGoods--;
+    },
+    filter() {
+      this.filteredGoods = this.goods;
+      if (this.searchLine) {
+        this.filteredGoods = this.filteredGoods.filter((item) => {
+          return (
+            item.product_name.toUpperCase() == this.searchLine.toUpperCase()
+          );
+        });
+      }
+    },
+  },
+  mounted() {
+    this.answer(`${API_URL}/catalogData.json`).then(
+      (goods) => {
+        this.goods = goods;
+        this.filteredGoods = goods;
+
+        return this.goods;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    this.answer(`${API_URL}/getBasket.json`).then(
+      (goods) => {
+        this.basket = goods;
+
+        return this.basket;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  },
+});
+
 class GoodsItem {
   constructor({ product_name, price }) {
     this.title = product_name;
@@ -91,16 +170,6 @@ https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/res
 /deleteFromBasket.json – удалить товар из корзины.
 */
 }
-
-const list = new GoodsList(GoodsItem);
-list.fetchGoods().then(() => {
-  list.render();
-});
-
-const cartList = new CartList(CartItem);
-cartList.fetchGoods().then(() => {
-  cartList.render();
-});
 
 /* Некая сеть фастфуда предлагает несколько видов гамбургеров:
 Маленький (50 рублей, 20 калорий).

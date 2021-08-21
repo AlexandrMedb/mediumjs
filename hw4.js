@@ -10,8 +10,8 @@ const replace = (text) => {
   console.log(text);
 };
 
-replace(text);
-replace(text2);
+// replace(text);
+// replace(text2);
 
 //функция странно отрабатывает первый символ на кирилице в причинах не разбирался
 
