@@ -18,36 +18,7 @@ const app = new Vue({
         }
       );
     },
-    addToCart(ellId) {
-      let el_index = this.basket.contents.findIndex(
-        (item) => item.id_product == ellId
-      );
 
-      if (el_index == -1) {
-        let el = this.goods.find((item) => item.id_product == ellId);
-        el.quantity = 1;
-        this.basket.contents.push(el);
-        this.basket.amount += +el.price;
-      } else {
-        let el = this.basket.contents[el_index];
-        this.basket.amount += +el.price;
-        el.quantity++;
-      }
-      this.basket.countGoods++;
-    },
-    removeFromCart(ellId) {
-      let el = this.basket.contents.find((item) => item.id_product == ellId);
-      this.basket.amount -= +el.price;
-      el.quantity--;
-
-      this.basket.countGoods--;
-      if (!el.quantity) {
-        let elIndex = this.basket.contents.findIndex(
-          (item) => item.id_product == ellId
-        );
-        this.basket.contents.splice(elIndex, 1);
-      }
-    },
     filter(a) {
       this.searchLine = a;
       this.filteredGoods = this.goods;
@@ -113,13 +84,8 @@ Vue.component("goods-item", {
         },
         body: JSON.stringify(this.item),
       });
+      location.reload();
     },
-  },
-  data() {
-    user = {
-      name: "John",
-      surname: "Smith",
-    };
   },
 });
 
@@ -140,9 +106,21 @@ Vue.component("basket-item", {
   <h3>{{item.product_name}}</h3>
   <p>{{item.price}}</p>
   <p>Количество {{item.quantity}}</p>
-  <button @click="removeFromCart(item.id_product)">X</button>
+  <button @click="response">X</button>
 </div>
   `,
+  methods: {
+    response() {
+      fetch("/cartRemove.json", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(this.item),
+      });
+      location.reload();
+    },
+  },
 });
 
 Vue.component("vue-header", {
