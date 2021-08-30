@@ -1,0 +1,29 @@
+{
+  "name": "mediumjs",
+  "version": "1.0.0",
+  "description": "mediumjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "dev": "concurrently \"nodemon index.js\" \"cd client && npm run build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexandrMedb/mediumjs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexandrMedb/mediumjs/issues"
+  },
+  "homepage": "https://github.com/AlexandrMedb/mediumjs#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.2.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
